@@ -6,7 +6,7 @@ Features include OTP-based authentication, password hashing, appointment schedul
 ## Demo
 Watch the full demo here: [YouTube Video](https://youtu.be/KPRdgHwCEII)
 
-## ⚙️ Tech Stack
+## Tech Stack
 - **Backend:** Python (Flask, Flask-SQLAlchemy, Flask-WTF, Flask-Login, Flask-Mail)
 - **Database:** SQLite with SQLAlchemy ORM
 - **Frontend:** HTML, CSS, JavaScript, Jinja2 templates

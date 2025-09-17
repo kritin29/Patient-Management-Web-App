@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row justify-content-md-center">
+    <div class="col-md-12">
+        <div class="card" id="pictures">
+            <div class="card-header" id="pictures-header">
+                <h3 class="text-center">View pictures for {{ patient.name }}</h3>
+            </div>   
+            <div class="card-body" id="pictures-body">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="prev-icon" aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="next-icon" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <div id="carouselExampleIndicators" class="carousel slide d-flex align-items-center" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        {% for picture in pictures %}
+                            <button style="background-color: black" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index0 }}" {% if loop.first %} class="active" {% endif %} aria-current="true" aria-label="Slide {{ loop.index }}"></button>
+                        {% endfor %}
+                    </div>
+                    <div class="carousel-inner d-flex align-items-center" style="height: 710px;">
+                        {% for picture in pictures %}
+                            <div class="carousel-item {% if loop.first %} active {% endif %}">
+                                <img src="{{ url_for('retrieve_picture', picture_id=picture.id) }}" class="d-block w-100" alt="Slide {{ loop.index }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

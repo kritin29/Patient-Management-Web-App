@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-center mb-4">
+                <div class="card-header">
+                    <h5 class="text-center">Total Patients</h5>
+                </div>
+                <div class="card-body">
+                    <i class="fas fa-user fa-3x mb-2"></i>
+                    <h4 class="card-title">{{ num_patients }}</h4>
+                </div>
+            </div>
+            <div class="card text-center">
+                <div class="card-header">
+                    <h5 class="text-center">Total Appointments</h5>
+                </div>
+                <div class="card-body">
+                    <i class="far fa-calendar-alt fa-3x mb-2"></i>
+                    <h4 class="card-title">{{ num_appointments }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Today's Appointments</h3>
+                </div>
+                <div class="card-body">
+                    <div class="list-group" style="border-radius: 0px;">
+                        {% for appointment in appointments_for_today %}
+                            <div class="list-group-item" style="font-size: 18px;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5>Appointment for patient: <span style="font-weight: bold; padding-left: 0px;">{{ appointment.patient.name }}</span></h5>
+                                        <p class="mb-0"><strong>Date:</strong> {{ appointment.date.strftime("%d %B, %Y") }}</p>
+                                        <p style="display: none;" class="mb-0" id="time{{ loop.index }}"><span style="font-weight: bold; padding-left: 0px;">Timing: </span>{{ appointment.start_time.strftime("%I:%M %p") }} to {{ appointment.end_time.strftime("%I:%M %p") }}</p>
+                                    </div>
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="toggleTime('{{ loop.index }}')">Details</button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleTime(index) {
+        var time = document.getElementById('time' + index);
+
+        if (time.style.display === 'none') {
+            time.style.display = 'block';
+        } else {
+            time.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}

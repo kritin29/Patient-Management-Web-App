@@ -1,0 +1,166 @@
+body {
+    overflow-y: hidden;
+}
+
+h3{
+    font-size: 24px;
+}
+
+.sidebar {
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    top: 0;
+    left: 0px;
+    background-color: #0096c8;
+    overflow-x: hidden;
+    transition: left 0.3s ease;
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.nav-links, span {
+    list-style-type: none;
+    padding: 0 0 0 5px;
+}
+
+.nav-links li {
+    font-size: 20px;
+    padding: 10px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: all linear 0.1s;
+}
+
+.nav-links a:hover {
+    background-color: #028cba;
+}
+
+.nav-links a i {
+    margin-right: 10px;
+}
+
+#menu{
+    color: #fff;
+    margin-bottom: 10px
+}
+
+.submenu, .submenu-2{
+    display: none;
+    padding: 0px 0;
+    padding-left: 20px;
+    list-style: none;
+}
+
+.submenu-toggle, .submenu-toggle-2{
+    background-color: transparent;
+    color: #fff;
+    border: none;
+}
+
+.submenu a, .submenu-2 a{
+    font-size: 18px;
+    display: block;
+}
+
+.submenu li, .submenu-2 li{
+    margin-bottom: -10px;
+}
+
+.submenu.show, .submenu-2.show {
+    display: block;
+}
+
+.flash{
+    margin-left: 300px;
+    margin-bottom: -65px;
+}
+
+.alert{
+    height: 65px;
+    font-size: 18px;
+    border-radius: 0%;
+}
+
+.container{
+    height: 100vh;
+}
+
+.row{
+    margin-top: 15%;
+    margin-left: 260px;
+}
+
+.table{
+    overflow-y: scroll;
+}
+
+#table{
+    border: none;
+}
+
+#table-heading{
+    background-color: transparent;
+    margin-top: -10%;
+}
+
+#search-box, #search-btn{
+    border-radius: 0%;
+}
+
+#table-link{
+    text-decoration: none;
+    color: #fff;
+}
+
+#link{
+    color: #0096c8;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btn-primary{
+    background-color: #0096c8;
+    border: 1px solid #0096c8;
+}
+
+.btn-primary:hover{
+    background-color: #0a83ac;
+    border: 1px solid #0a83ac;
+    cursor: pointer;
+}
+
+#pictures{
+    height: 800px; 
+    width: 110%;
+    overflow: none; 
+    border-radius: 0px;
+    margin-top: -5%;
+}
+
+#pictures-header{
+    color: #fff;
+    background-color: #0096c8;
+    border: 2px solid #0096c8; 
+    border-radius: 0%;
+}
+
+#pictures-body{
+    background-color: #f2f2f2;
+}
+
+.prev-icon .fas,
+.next-icon .fas {
+    color: black;
+    font-size: 32px;
+}

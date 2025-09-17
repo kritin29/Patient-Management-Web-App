@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Dental Clinic</title>
+</head> 
+
+<body>
+    <header>
+        <nav class="sidebar">
+            <div class="sidebar-header mt-4">
+                <h3>Dental Clinic</h3>
+            </div>
+            <ul class="nav-links">
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li>
+                    <i class="fas fa-users" id="menu"></i><span style="color: #fff"> Manage Patients</span><button class="submenu-toggle" data-target="submenu"><i class="fas fa-caret-down"></i></button>
+                    <ul class="submenu">
+                        <li><a href="{{ url_for('view_patients') }}">View Patients</a></li>
+                        <li><a href="{{ url_for('add_patient') }}">Add Patient</a></li>
+                        <li><a href="{{ url_for('add_picture') }}">Add Pictures</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="fas fa-calendar-check" id="menu"></i><span style="color: #fff"> Manage Appointments</span><button class="submenu-toggle" data-target="submenu-2"><i class="fas fa-caret-down"></i></button>
+                    <ul class="submenu-2">
+                        <li><a href="{{ url_for('view_appointments') }}">View Appointments</a></li>
+                        <li><a href="{{ url_for('add_appointment') }}">Add Appointments</a></li>
+                    </ul>
+                </li>                           
+                <li><a href="{{ url_for('signout') }}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+                {% else %}
+                <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home Page</a></li>
+                <li><a href="{{ url_for('signin') }}"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+                <li><a href="{{ url_for('signup') }}"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class="flash">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <main role="main" class="container">
+        {% block content %}{% endblock %}
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const submenuToggles = document.querySelectorAll('.submenu-toggle');
+
+            submenuToggles.forEach(function(toggle) {
+                toggle.addEventListener('click', function() {
+                    const target = toggle.getAttribute('data-target');
+                    const submenu = document.querySelector('.' + target);
+
+                    submenu.classList.toggle('show');
+                    if (submenu.classList.contains('show')) {
+                        localStorage.setItem(target, 'show');
+                    } else {
+                        localStorage.setItem(target, 'hide');
+                    }
+                });
+            });
+
+            submenuToggles.forEach(function(toggle) {
+                const target = toggle.getAttribute('data-target');
+                const submenuState = localStorage.getItem(target);
+                const submenu = document.querySelector('.' + target);
+
+                if (submenuState === 'show') {
+                    submenu.classList.add('show');
+                }
+            });
+        });
+    </script>    
+</body>
+</html>

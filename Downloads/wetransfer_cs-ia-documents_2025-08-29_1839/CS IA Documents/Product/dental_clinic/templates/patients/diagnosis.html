@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row justify-content-md-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Update Diagnosis</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Patient Name</label>
+                        <input type="text" class="form-control" value="{{ patient_info.name }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Patient Gender</label>
+                        <input type="text" class="form-control" value="{{ patient_info.gender }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Patient Age</label>
+                        <input type="text" class="form-control" value="{{ patient_info.age }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        {{ form.diagnosis.label(class="form-label") }}
+                        {{ form.diagnosis(class="form-control") }}
+                        {% for error in form.diagnosis.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>          
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row justify-content-md-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Add Patient</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('add_patient') }}">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group mb-3">
+                        {{ form.name.label(class="form-label") }}
+                        {% if form.name.errors %}
+                            {{ form.name(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.name.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.name(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group mb-3">
+                        {{ form.gender.label(class="form-label") }}
+                        {% if form.gender.errors %}
+                            {{ form.gender(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.gender.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.gender(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group mb-3">
+                        {{ form.age.label(class="form-label") }}
+                        {% if form.age.errors %}
+                            {{ form.age(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.age.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.age(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group mb-3" id="diagnosisField" style="display: none;">
+                        {{ form.diagnosis.label(class="form-label") }}
+                        {% if form.diagnosis.errors %}
+                            {{ form.diagnosis(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.diagnosis.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.diagnosis(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-label" id="toggle-heading">Diagnosis</div>
+                    <button type="button" class="btn btn-secondary btn-sm" id="toggleDiagnosis">Add Diagnosis (Optional)</button>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-block">{{ form.submit.label }}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const diagnosisField = document.querySelector('#diagnosisField');
+        const toggleButton = document.querySelector('#toggleDiagnosis');
+        const toggleHeading = document.querySelector('#toggle-heading');
+
+        toggleButton.addEventListener('click', function() {
+            if (diagnosisField.style.display === 'none' || diagnosisField.style.display === '') {
+                diagnosisField.style.display = 'block';
+                toggleHeading.style.display = 'none';
+                toggleButton.textContent = 'Remove Diagnosis';
+            } else {
+                diagnosisField.style.display = 'none';
+                toggleButton.textContent = 'Add Diagnosis (Optional)';
+                toggleHeading.style.display = 'block';
+                document.querySelector('#diagnosis').value = '';
+            }
+        });
+    });
+</script>
+
+{% endblock %}

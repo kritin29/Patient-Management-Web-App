@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row justify-content-md-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Sign Up</h3>
+            </div>
+            {% if not valid %}
+                <div id="info-form">
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('signup') }}">
+                            {{ form.hidden_tag() }}
+                            <div class="form-group mb-3">
+                                {{ form.username.label(class="form-label") }}
+                                {% if form.username.errors %}
+                                    {{ form.username(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.username.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.username(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group mb-3">
+                                {{ form.email.label(class="form-label") }}
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group mb-3">
+                                {{ form.password.label(class="form-label") }}
+                                {% if form.password.errors %}
+                                    {{ form.password(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.password(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group mb-3">
+                                {{ form.confirm_password.label(class="form-label") }}
+                                {% if form.confirm_password.errors %}
+                                    {{ form.confirm_password(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.confirm_password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.confirm_password(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">{{ form.submit.label }}</button>
+                        </form>
+                    </div>
+                </div>
+            {% elif valid %}
+                <div id="otp-form">
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('check_otp') }}">
+                            {{ form.hidden_tag() }}
+                            <input type="hidden" name="username" value="{{ form.username.data }}">
+                            <input type="hidden" name="email" value="{{ form.email.data }}">
+                            <input type="hidden" name="password" value="{{ form.password.data }}">
+                            <input type="hidden" name="password" value="{{ form.confirm_password.data }}">
+                            <div class="form-group">
+                                <label for="otp_input">Enter OTP</label>
+                                    <input type="text" class="form-control" id="otp_input" name="otp_input">
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary">Check OTP</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
